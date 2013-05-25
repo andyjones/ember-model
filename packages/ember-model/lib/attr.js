@@ -34,7 +34,7 @@ Ember.attr = function(type) {
       return value;
     }
 
-    if (typeof dataValue === 'object') {
+    if (typeof dataValue === 'object' && dataValue !== null) {
       dataValue = Ember.create(dataValue);
     }
     return dataValue;

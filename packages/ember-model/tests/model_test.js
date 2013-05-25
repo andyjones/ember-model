@@ -3,11 +3,12 @@ var Model;
 module("Ember.Model", {
   setup: function() {
     Model = Ember.Model.extend({
-      name: Ember.attr()
+      name:        Ember.attr(),
+      footballFan: Ember.attr()
     });
     Model.adapter = Ember.FixtureAdapter.create();
     Model.FIXTURES = [
-      {id: 1, name: 'Erik'}
+      {id: 1, name: 'Erik', footballFan: null}
     ];
   },
   teardown: function() {
@@ -19,6 +20,7 @@ test("can define attributes with Ember.attr, data is accessible", function() {
   var instance = Model.create({name: "Erik"});
 
   equal(instance.get('name'), "Erik", "Property value was retained");
+  equal(instance.get('footballFan'), null, 'Null properties are retainied');
 });
 
 // test("coercion", function() {
@@ -109,7 +111,7 @@ test("record.toJSON() is generated from Ember.attr definitions", function() {
   var record = Ember.run(Model, Model.find, 1);
   record.on('didLoad', function() {
     start();
-    deepEqual(record.toJSON(), {name: 'Erik'});
+    deepEqual(record.toJSON(), {name: 'Erik', footballFan: null});
   });
   stop();
 });
